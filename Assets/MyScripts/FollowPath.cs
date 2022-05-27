@@ -35,6 +35,14 @@ public class FollowPath : MonoBehaviour
         currentWP = 0;
     }
 
+    public void GoToUsina()
+    {
+        //Passa ao método os pontos atuais e alvo para mover o agente [6]
+        g.AStar(currentNode, wps[9]);
+        //Zera o contador de movimento
+        currentWP = 0;
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {
@@ -61,6 +69,7 @@ public class FollowPath : MonoBehaviour
             goal.position.z);
             //Utiliza o vetor para rotacionar em direção ao alvo
             Vector3 direction = lookAtGoal - this.transform.position;
+            this.transform.Translate(Vector3.forward * speed * Time.deltaTime);
             //Rotaciona e move o objeto
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
             Quaternion.LookRotation(direction),
