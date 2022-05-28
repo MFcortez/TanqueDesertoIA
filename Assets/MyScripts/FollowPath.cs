@@ -37,7 +37,7 @@ public class FollowPath : MonoBehaviour
 
     public void GoToUsina()
     {
-        //Passa ao método os pontos atuais e alvo para mover o agente [6]
+        //Passa ao método os pontos atuais e alvo para mover o agente [9]
         g.AStar(currentNode, wps[9]);
         //Zera o contador de movimento
         currentWP = 0;
