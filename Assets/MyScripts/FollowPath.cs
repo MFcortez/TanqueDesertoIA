@@ -19,42 +19,40 @@ public class FollowPath : MonoBehaviour
         g = wpManager.GetComponent<WPManager>().graph;
         currentNode = wps[0];
     }
+
+    //Faz o tanque se mover para o Heliporto
     public void GoToHeli()
     {
-        //Passa ao método os pontos atuais e alvo para mover o agente [1]
+        //Chama o metodo AStar do Graph passando o ponto inicial e o destino para que seja gerado o caminho
         g.AStar(currentNode, wps[1]);
-        //Zera o contador de movimento
         currentWP = 0;
     }
-    //Método para se mover ao ponto ruina
+
+    //Faz o tanque se mover para as Ruinas
     public void GoToRuin()
     {
-        //Passa ao método os pontos atuais e alvo para mover o agente [6]
+        //Chama o metodo AStar do Graph passando o ponto inicial e o destino para que seja gerado o caminho
         g.AStar(currentNode, wps[6]);
-        //Zera o contador de movimento
         currentWP = 0;
     }
 
+    //Faz o tanque se mover para a Fabrica
     public void GoToUsina()
     {
-        //Passa ao método os pontos atuais e alvo para mover o agente [9]
+        //Chama o metodo AStar do Graph passando o ponto inicial e o destino para que seja gerado o caminho
         g.AStar(currentNode, wps[9]);
-        //Zera o contador de movimento
         currentWP = 0;
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
         if (g.getPathLength() == 0 || currentWP == g.getPathLength())
             return;
 
-        //O nó que estará mais próximo neste momento
+        //Define um destino atual para o tanque pegando como base o ponto atual
         currentNode = g.getPathPoint(currentWP);
-        //se estivermos mais próximo bastante do nó o tanque se moverá para o próximo
-        if (Vector3.Distance(
-        g.getPathPoint(currentWP).transform.position,
-        transform.position) < accuracy)
+        //Verifica se o tanque está próximo do nó de destino atual
+        if (Vector3.Distance(g.getPathPoint(currentWP).transform.position, transform.position) < accuracy)
         {
             currentWP++;
         }
@@ -63,14 +61,14 @@ public class FollowPath : MonoBehaviour
         {
             //Define proximo ponto alvo do movimento
             goal = g.getPathPoint(currentWP).transform;
-            //Aloca próximo ponto em um vetor
+            //Define a direção do objeto destino
             Vector3 lookAtGoal = new Vector3(goal.position.x,
-            this.transform.position.y,
-            goal.position.z);
-            //Utiliza o vetor para rotacionar em direção ao alvo
+                this.transform.position.y,
+                goal.position.z);
             Vector3 direction = lookAtGoal - this.transform.position;
+            //Move o objeto para a frente
             this.transform.Translate(Vector3.forward * speed * Time.deltaTime);
-            //Rotaciona e move o objeto
+            //Rotaciona o objeto conforme o destino
             this.transform.rotation = Quaternion.Slerp(this.transform.rotation,
             Quaternion.LookRotation(direction),
             Time.deltaTime * rotSpeed);

@@ -6,14 +6,13 @@ using UnityEngine.AI;
 public class AgentManager : MonoBehaviour
 {
     GameObject[] agents;
-    // Use this for initialization
     void Start()
     {
         agents = GameObject.FindGameObjectsWithTag("ai");
     }
-    // Update is called once per frame
     void Update()
     {
+        //Ao clicar pega a posição do mouse no clique e passa como destino para o agente
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;

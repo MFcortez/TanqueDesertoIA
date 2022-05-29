@@ -17,9 +17,9 @@ public class WPManager : MonoBehaviour
     public Link[] links;
     public Graph graph = new Graph();
 
-    // Start is called before the first frame update
     void Start()
     {
+        //Seta os nodes presentes no WPManager conforme as configs inseridas no Editor
         if (waypoints.Length > 0)
         {
             foreach (GameObject wp in waypoints)
@@ -35,7 +35,6 @@ public class WPManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         graph.debugDraw();
